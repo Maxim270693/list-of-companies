@@ -8,42 +8,48 @@ const initialState = {
             isChecked: false,
             lastName: 'Ivanov',
             name: 'Ivan',
-            jobTitle: 'Programmer'
+            jobTitle: 'Programmer',
+            company: 'BELSHINA'
         },
         {
             id: Date.now() + Math.random(),
             isChecked: false,
             lastName: 'Petrov',
             name: 'Petr',
-            jobTitle: 'HouseWorker'
+            jobTitle: 'HouseWorker',
+            company: 'MTZ'
         },
         {
             id: Date.now() + Math.random(),
             isChecked: false,
             lastName: 'Vladimirov',
             name: 'Vladimir',
-            jobTitle: 'Driver'
+            jobTitle: 'Driver',
+            company: 'HORIZONT'
         },
         {
             id: Date.now() + Math.random(),
             isChecked: false,
             lastName: 'Sidorov',
             name: 'Kostya',
-            jobTitle: 'Builder'
+            jobTitle: 'Builder',
+            company: 'MTZ'
         },
         {
             id: Date.now() + Math.random(),
             isChecked: false,
             lastName: 'Zhuk',
             name: 'Maxim',
-            jobTitle: 'Engineer'
+            jobTitle: 'Engineer',
+            company: 'HORIZONT'
         },
         {
             id: Date.now() + Math.random(),
             isChecked: false,
             lastName: 'Vetrova',
             name: 'Julia',
-            jobTitle: 'Teacher'
+            jobTitle: 'Teacher',
+            company: 'MTZ'
         },
     ] as EmployeeCompanyType[]
 }

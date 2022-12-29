@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ListCompany from "./components/listCompany/listCompany";
+import ListCompanies from "./components/listCompanies/listCompanies";
 import EmployeeCompany from "./components/employeeCompany/employeeCompany";
 
 import './App.css';
@@ -8,7 +8,7 @@ import './App.css';
 function App() {
     return (
         <div className="App">
-            <ListCompany/>
+            <ListCompanies/>
             <EmployeeCompany/>
         </div>
     );

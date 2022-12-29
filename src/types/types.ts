@@ -16,4 +16,5 @@ export type EmployeeCompanyType = {
     lastName: string,
     name: string,
     jobTitle: string,
+    company: string,
 }

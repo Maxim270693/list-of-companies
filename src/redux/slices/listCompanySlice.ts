@@ -50,9 +50,29 @@ export const listCompanySlice = createSlice({
             }
             state.listCompanies.push(newCompany)
         },
+        changeNameCompany(state, action) {
+            state.listCompanies.map(company => {
+                if (company.id === action.payload.id) {
+                    company.nameCompany = action.payload.title
+                }
+            })
+        },
+        changeAddressCompany(state, action) {
+            state.listCompanies.map(company => {
+                if (company.id === action.payload.id) {
+                    company.address = action.payload.addressCompany
+                }
+            })
+        }
     }
 })
 
-export const {changeCheckBox, removeCompany, addCompany} = listCompanySlice.actions;
+export const {
+    changeCheckBox,
+    removeCompany,
+    addCompany,
+    changeNameCompany,
+    changeAddressCompany,
+} = listCompanySlice.actions;
 
 export default listCompanySlice.reducer;
