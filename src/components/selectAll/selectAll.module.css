@@ -1,0 +1,8 @@
+.selectAll {
+    display: flex;
+    margin: 10px 0;
+}
+
+.selectAll input {
+    margin-left: 10px;
+}
