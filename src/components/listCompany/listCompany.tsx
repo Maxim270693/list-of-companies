@@ -1,8 +1,13 @@
 import React from 'react';
 
+import {useSelector} from "react-redux";
+import {ListCompanyType, RootStateType} from "../../types/types";
+
 import SelectAll from "../selectAll/selectAll";
 
 const ListCompany = () => {
+    const listCompanies = useSelector<RootStateType, ListCompanyType[]>(state => state.listCompany.listCompanies)
+
     return (
         <div>
             <h1>Table list with company</h1>
@@ -17,30 +22,25 @@ const ListCompany = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>MTZ</td>
-                    <td>10</td>
-                    <td>Minsk</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>HORIZONT</td>
-                    <td>5</td>
-                    <td>Brest</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>BELSHINA</td>
-                    <td>6</td>
-                    <td>Gomel</td>
-                </tr>
+                {
+                    listCompanies.map(company => {
+                        const {id, isChecked, nameCompany, numberOfEmployees, address} = company;
+
+                        return (
+                            <tr key={id}>
+                                <td>
+                                    <input type="checkbox"
+                                           checked={isChecked}
+                                           onChange={() => {}}
+                                    />
+                                </td>
+                                <td>{nameCompany}</td>
+                                <td>{numberOfEmployees}</td>
+                                <td>{address}</td>
+                            </tr>
+                        )
+                    })
+                }
                 </tbody>
             </table>
         </div>
