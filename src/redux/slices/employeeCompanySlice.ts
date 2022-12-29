@@ -57,9 +57,21 @@ const initialState = {
 export const employeeCompanySlice = createSlice({
     name: 'employeeCompany',
     initialState,
-    reducers: {}
+    reducers: {
+        addEmployee(state, action) {
+            const newEmployee = {
+                id: Date.now() + Math.random(),
+                isChecked: false,
+                lastName: action.payload.lastName,
+                name: action.payload.name,
+                jobTitle: action.payload.jobTitle,
+                company: 'MTZ'
+            }
+            state.employeeCompany.push(newEmployee)
+        },
+    }
 })
 
-export const {} = employeeCompanySlice.actions;
+export const {addEmployee} = employeeCompanySlice.actions;
 
 export default employeeCompanySlice.reducer;

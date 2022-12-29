@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {useSelector} from "react-redux";
 import {EmployeeCompanyType, ListCompanyType, RootStateType} from "../../types/types";
 
 import SelectAll from "../selectAll/selectAll";
+import AddEmployeeModal from "../modal/addEmployeeModal";
 
 type EmployeeCompanyPropsType = {
     checkedCompany: ListCompanyType[]
@@ -12,13 +13,23 @@ type EmployeeCompanyPropsType = {
 const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
     const employeeCompany = useSelector<RootStateType, EmployeeCompanyType[]>(state => state.employeeCompany.employeeCompany)
 
-    const newEmployeeCompany = employeeCompany.filter(i => i.company === checkedCompany[0].nameCompany)
+    const [openModal, setOpenModal] = useState(false)
+
+    const newEmployeeCompany = employeeCompany.filter(i => i.company === checkedCompany.at(-1)?.nameCompany)
+
+    const openModalHandler = () => {
+        setOpenModal(true)
+    }
 
     return (
         <div>
+            {openModal && <AddEmployeeModal setOpenModal={setOpenModal}/>}
+
             <h1>Table employee current company</h1>
 
             <SelectAll/>
+
+            <button onClick={openModalHandler}>add employee</button>
 
             <table>
                 <thead>
