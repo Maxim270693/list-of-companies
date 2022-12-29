@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {changeCheckBox} from "../../redux/slices/listCompanySlice";
+import {addCompany, changeCheckBox, removeCompany} from "../../redux/slices/listCompanySlice";
 
 import SelectAll from "../selectAll/selectAll";
 
@@ -16,6 +16,9 @@ const ListCompany = () => {
         <div>
             <h1>Table list with company</h1>
             <SelectAll/>
+
+            <button onClick={() => dispatch(addCompany())}>add company</button>
+
             <table>
                 <thead>
                 <tr>
@@ -34,6 +37,10 @@ const ListCompany = () => {
                             dispatch(changeCheckBox(id))
                         }
 
+                        const removeCompanyHandler = () => {
+                            dispatch(removeCompany(id))
+                        }
+
                         return (
                             <tr key={id} className={isChecked ? styles.backgroundRow : ''}>
                                 <td>
@@ -45,6 +52,9 @@ const ListCompany = () => {
                                 <td>{nameCompany}</td>
                                 <td>{numberOfEmployees}</td>
                                 <td>{address}</td>
+                                <td>
+                                    <button onClick={removeCompanyHandler}>delete</button>
+                                </td>
                             </tr>
                         )
                     })

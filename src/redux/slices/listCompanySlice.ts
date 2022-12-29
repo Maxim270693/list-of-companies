@@ -36,10 +36,23 @@ export const listCompanySlice = createSlice({
                 ? company.isChecked = !company.isChecked
                 : ''
             )
-        }
+        },
+        removeCompany(state, action) {
+            state.listCompanies = state.listCompanies.filter(company => company.id !== action.payload)
+        },
+        addCompany(state) {
+            const newCompany = {
+                id: Date.now() + Math.random(),
+                isChecked: false,
+                nameCompany: 'Nike',
+                numberOfEmployees: 4,
+                address: 'London',
+            }
+            state.listCompanies.push(newCompany)
+        },
     }
 })
 
-export const {changeCheckBox} = listCompanySlice.actions;
+export const {changeCheckBox, removeCompany, addCompany} = listCompanySlice.actions;
 
 export default listCompanySlice.reducer;
