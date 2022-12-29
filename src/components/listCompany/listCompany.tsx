@@ -1,11 +1,15 @@
 import React from 'react';
-
-import {useSelector} from "react-redux";
-import {ListCompanyType, RootStateType} from "../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {changeCheckBox} from "../../redux/slices/listCompanySlice";
 
 import SelectAll from "../selectAll/selectAll";
 
+import {ListCompanyType, RootStateType} from "../../types/types";
+import styles from './listCompany.module.css';
+
 const ListCompany = () => {
+    const dispatch = useDispatch();
+
     const listCompanies = useSelector<RootStateType, ListCompanyType[]>(state => state.listCompany.listCompanies)
 
     return (
@@ -26,12 +30,16 @@ const ListCompany = () => {
                     listCompanies.map(company => {
                         const {id, isChecked, nameCompany, numberOfEmployees, address} = company;
 
+                        const changeCheckBoxHandler = () => {
+                            dispatch(changeCheckBox(id))
+                        }
+
                         return (
-                            <tr key={id}>
+                            <tr key={id} className={isChecked ? styles.backgroundRow : ''}>
                                 <td>
                                     <input type="checkbox"
                                            checked={isChecked}
-                                           onChange={() => {}}
+                                           onChange={changeCheckBoxHandler}
                                     />
                                 </td>
                                 <td>{nameCompany}</td>

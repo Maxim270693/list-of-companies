@@ -30,9 +30,16 @@ const initialState = {
 export const listCompanySlice = createSlice({
     name: 'listCompany',
     initialState,
-    reducers: {}
+    reducers: {
+        changeCheckBox(state, action) {
+            state.listCompanies.map(company => company.id === action.payload
+                ? company.isChecked = !company.isChecked
+                : ''
+            )
+        }
+    }
 })
 
-export const {} = listCompanySlice.actions;
+export const {changeCheckBox} = listCompanySlice.actions;
 
 export default listCompanySlice.reducer;
