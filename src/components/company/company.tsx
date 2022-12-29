@@ -5,8 +5,9 @@ import {
     changeNameCompany,
     removeCompany
 } from "../../redux/slices/listCompanySlice";
-import styles from "../listCompanies/listCompany.module.css";
 import {useDispatch} from "react-redux";
+
+import styles from "../listCompanies/listCompany.module.css";
 
 type CompanyType = {
     id: number,

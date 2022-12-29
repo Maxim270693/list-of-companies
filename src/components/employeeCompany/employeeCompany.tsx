@@ -1,12 +1,18 @@
 import React from 'react';
 
 import {useSelector} from "react-redux";
-import {EmployeeCompanyType, RootStateType} from "../../types/types";
+import {EmployeeCompanyType, ListCompanyType, RootStateType} from "../../types/types";
 
 import SelectAll from "../selectAll/selectAll";
 
-const EmployeeCompany = () => {
+type EmployeeCompanyPropsType = {
+    checkedCompany: ListCompanyType[]
+}
+
+const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
     const employeeCompany = useSelector<RootStateType, EmployeeCompanyType[]>(state => state.employeeCompany.employeeCompany)
+
+    const newEmployeeCompany = employeeCompany.filter(i => i.company === checkedCompany[0].nameCompany)
 
     return (
         <div>
@@ -14,7 +20,7 @@ const EmployeeCompany = () => {
 
             <SelectAll/>
 
-            <table style={{border: '1px solid black'}}>
+            <table>
                 <thead>
                 <tr>
                     <th>Чекбокс</th>
@@ -25,7 +31,7 @@ const EmployeeCompany = () => {
                 </thead>
                 <tbody>
                 {
-                    employeeCompany.map(employee => {
+                    newEmployeeCompany.map(employee => {
                         const {id, isChecked, lastName, name, jobTitle} = employee;
 
                         return (

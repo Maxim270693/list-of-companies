@@ -7,11 +7,6 @@ input, button {
     cursor: pointer;
 }
 
-.App {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .App div:first-child {
     margin-right: 10px;
 }
