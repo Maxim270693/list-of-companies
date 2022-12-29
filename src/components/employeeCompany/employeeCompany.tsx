@@ -1,12 +1,19 @@
 import React from 'react';
 
+import {useSelector} from "react-redux";
+import {EmployeeCompanyType, RootStateType} from "../../types/types";
+
 import SelectAll from "../selectAll/selectAll";
 
 const EmployeeCompany = () => {
+    const employeeCompany = useSelector<RootStateType, EmployeeCompanyType[]>(state => state.employeeCompany.employeeCompany)
+
     return (
         <div>
             <h1>Table employee current company</h1>
+
             <SelectAll/>
+
             <table style={{border: '1px solid black'}}>
                 <thead>
                 <tr>
@@ -17,54 +24,25 @@ const EmployeeCompany = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>Ivanov</td>
-                    <td>Ivan</td>
-                    <td>Programmer</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>Petrov</td>
-                    <td>Petr</td>
-                    <td>HouseWorker</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>Vladimirov</td>
-                    <td>Vladimir</td>
-                    <td>Driver</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>Sidorov</td>
-                    <td>Kostya</td>
-                    <td>Builder</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>Zhuk</td>
-                    <td>Maxim</td>
-                    <td>Engineer</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox"/>
-                    </td>
-                    <td>Vetrova</td>
-                    <td>Julia</td>
-                    <td>Teacher</td>
-                </tr>
+                {
+                    employeeCompany.map(employee => {
+                        const {id, isChecked, lastName, name, jobTitle} = employee;
+
+                        return (
+                            <tr key={id}>
+                                <td>
+                                    <input type="checkbox"
+                                           checked={isChecked}
+                                           onChange={() => {}}
+                                    />
+                                </td>
+                                <td>{lastName}</td>
+                                <td>{name}</td>
+                                <td>{jobTitle}</td>
+                            </tr>
+                        )
+                    })
+                }
                 </tbody>
             </table>
         </div>
