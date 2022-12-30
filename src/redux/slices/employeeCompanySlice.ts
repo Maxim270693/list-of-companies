@@ -51,7 +51,8 @@ const initialState = {
             jobTitle: 'Teacher',
             company: 'MTZ'
         },
-    ] as EmployeeCompanyType[]
+    ] as EmployeeCompanyType[],
+    error: '',
 }
 
 export const employeeCompanySlice = createSlice({
@@ -65,13 +66,19 @@ export const employeeCompanySlice = createSlice({
                 lastName: action.payload.lastName,
                 name: action.payload.name,
                 jobTitle: action.payload.jobTitle,
-                company: 'MTZ'
+                company: action.payload.company
             }
             state.employeeCompany.push(newEmployee)
         },
+        deleteEmployee(state, action) {
+            state.employeeCompany = state.employeeCompany.filter(employee => employee.id !== action.payload)
+        },
+        setError(state, action) {
+            state.error = action.payload
+        }
     }
 })
 
-export const {addEmployee} = employeeCompanySlice.actions;
+export const {addEmployee, deleteEmployee, setError} = employeeCompanySlice.actions;
 
 export default employeeCompanySlice.reducer;

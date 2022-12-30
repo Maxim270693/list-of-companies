@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {EmployeeCompanyType, ListCompanyType, RootStateType} from "../../types/types";
 
 import SelectAll from "../selectAll/selectAll";
 import AddEmployeeModal from "../modal/addEmployeeModal";
+import {deleteEmployee} from "../../redux/slices/employeeCompanySlice";
 
 type EmployeeCompanyPropsType = {
     checkedCompany: ListCompanyType[]
 }
 
 const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
+    const dispatch = useDispatch();
+
     const employeeCompany = useSelector<RootStateType, EmployeeCompanyType[]>(state => state.employeeCompany.employeeCompany)
 
     const [openModal, setOpenModal] = useState(false)
@@ -45,17 +48,23 @@ const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
                     newEmployeeCompany.map(employee => {
                         const {id, isChecked, lastName, name, jobTitle} = employee;
 
+                        const deleteEmployeeHandler = () => dispatch(deleteEmployee(id))
+
                         return (
                             <tr key={id}>
                                 <td>
                                     <input type="checkbox"
                                            checked={isChecked}
-                                           onChange={() => {}}
+                                           onChange={() => {
+                                           }}
                                     />
                                 </td>
                                 <td>{lastName}</td>
                                 <td>{name}</td>
                                 <td>{jobTitle}</td>
+                                <td>
+                                    <button onClick={deleteEmployeeHandler}>delete</button>
+                                </td>
                             </tr>
                         )
                     })
