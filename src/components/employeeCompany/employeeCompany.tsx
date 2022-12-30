@@ -5,7 +5,10 @@ import {EmployeeCompanyType, ListCompanyType, RootStateType} from "../../types/t
 
 import SelectAll from "../selectAll/selectAll";
 import AddEmployeeModal from "../modal/addEmployeeModal";
-import {deleteEmployee} from "../../redux/slices/employeeCompanySlice";
+import {
+    changeCheckboxEmployeeEverything,
+    deleteEmployee
+} from "../../redux/slices/employeeCompanySlice";
 
 type EmployeeCompanyPropsType = {
     checkedCompany: ListCompanyType[]
@@ -20,8 +23,10 @@ const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
 
     const newEmployeeCompany = employeeCompany.filter(i => i.company === checkedCompany.at(-1)?.nameCompany)
 
-    const openModalHandler = () => {
-        setOpenModal(true)
+    const openModalHandler = () => setOpenModal(true)
+
+    const checkedEmployeeEverything = (isChecked: boolean) => {
+        dispatch(changeCheckboxEmployeeEverything(isChecked))
     }
 
     return (
@@ -30,7 +35,7 @@ const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
 
             <h1>Table employee current company</h1>
 
-            <SelectAll/>
+            <SelectAll onClickHandler={checkedEmployeeEverything}/>
 
             <button onClick={openModalHandler}>add employee</button>
 

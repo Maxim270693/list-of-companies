@@ -24,7 +24,8 @@ const initialState = {
             numberOfEmployees: 6,
             address: 'Gomel',
         },
-    ] as ListCompanyType[]
+    ] as ListCompanyType[],
+    checkboxAll: false,
 }
 
 export const listCompanySlice = createSlice({
@@ -63,7 +64,10 @@ export const listCompanySlice = createSlice({
                     company.address = action.payload.addressCompany
                 }
             })
-        }
+        },
+        changeCheckboxCompanyEverything(state, action) {
+            state.listCompanies.map(company => company.isChecked = action.payload)
+        },
     }
 })
 
@@ -73,6 +77,7 @@ export const {
     addCompany,
     changeNameCompany,
     changeAddressCompany,
+    changeCheckboxCompanyEverything,
 } = listCompanySlice.actions;
 
 export default listCompanySlice.reducer;

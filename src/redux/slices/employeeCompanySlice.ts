@@ -75,10 +75,13 @@ export const employeeCompanySlice = createSlice({
         },
         setError(state, action) {
             state.error = action.payload
+        },
+        changeCheckboxEmployeeEverything(state, action) {
+            state.employeeCompany.map(employee => employee.isChecked = action.payload)
         }
     }
 })
 
-export const {addEmployee, deleteEmployee, setError} = employeeCompanySlice.actions;
+export const {addEmployee, deleteEmployee, setError, changeCheckboxEmployeeEverything} = employeeCompanySlice.actions;
 
 export default employeeCompanySlice.reducer;

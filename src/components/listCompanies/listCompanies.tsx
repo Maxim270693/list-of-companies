@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addCompany} from "../../redux/slices/listCompanySlice";
+import {addCompany, changeCheckboxCompanyEverything} from "../../redux/slices/listCompanySlice";
 
 import SelectAll from "../selectAll/selectAll";
 
@@ -16,14 +16,18 @@ const ListCompanies = () => {
 
     const listCompanies = useSelector<RootStateType, ListCompanyType[]>(state => state.listCompany.listCompanies);
 
-    const checkedCompany = listCompanies.filter(company => company.isChecked)
+    const checkedCompany = listCompanies.filter(company => company.isChecked);
+
+    const checkedCompanyEverything = (isChecked: boolean) => {
+        dispatch(changeCheckboxCompanyEverything(isChecked))
+    }
 
     return (
         <div className={style.wrapper}>
             <div>
                 <h1>Table list with company</h1>
 
-                <SelectAll/>
+                <SelectAll onClickHandler={checkedCompanyEverything}/>
 
                 <button onClick={() => dispatch(addCompany())}>add company</button>
 
