@@ -26,15 +26,9 @@ const Company = ({id, isChecked, nameCompany, numberOfEmployees, address}: Compa
     const [title, setTitle] = useState(nameCompany)
     const [addressCompany, setAddressCompany] = useState(address)
 
-    const changeCheckBoxHandler = () => {
-        dispatch(changeCheckBox(id))
-    }
-    const removeCompanyHandler = () => {
-        dispatch(removeCompany(id))
-    }
-    const activateEditMode = () => {
-        setEditModeTitle(true)
-    }
+    const changeCheckBoxHandler = () => dispatch(changeCheckBox(id))
+    const removeCompanyHandler = () => dispatch(removeCompany(id))
+    const activateEditMode = () => setEditModeTitle(true)
     const changeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
     }
@@ -50,9 +44,7 @@ const Company = ({id, isChecked, nameCompany, numberOfEmployees, address}: Compa
     const changeInputAddressHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setAddressCompany(event.currentTarget.value)
     }
-    const activateEditModeAddress = () => {
-        setEditModeAddress(true)
-    }
+    const activateEditModeAddress = () => setEditModeAddress(true)
 
     return (
         <tr key={id} className={isChecked ? styles.backgroundRow : ''}>

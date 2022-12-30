@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
+import {changeCheckboxEmployeeEverything} from "../../redux/slices/employeeCompanySlice";
 import {EmployeeCompanyType, ListCompanyType, RootStateType} from "../../types/types";
 
+import Employee from "../employee/employee";
 import SelectAll from "../selectAll/selectAll";
 import AddEmployeeModal from "../modal/addEmployeeModal";
-import {
-    changeCheckboxEmployeeEverything,
-    deleteEmployee
-} from "../../redux/slices/employeeCompanySlice";
 
 type EmployeeCompanyPropsType = {
     checkedCompany: ListCompanyType[]
@@ -50,29 +48,7 @@ const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
                 </thead>
                 <tbody>
                 {
-                    newEmployeeCompany.map(employee => {
-                        const {id, isChecked, lastName, name, jobTitle} = employee;
-
-                        const deleteEmployeeHandler = () => dispatch(deleteEmployee(id))
-
-                        return (
-                            <tr key={id}>
-                                <td>
-                                    <input type="checkbox"
-                                           checked={isChecked}
-                                           onChange={() => {
-                                           }}
-                                    />
-                                </td>
-                                <td>{lastName}</td>
-                                <td>{name}</td>
-                                <td>{jobTitle}</td>
-                                <td>
-                                    <button onClick={deleteEmployeeHandler}>delete</button>
-                                </td>
-                            </tr>
-                        )
-                    })
+                    newEmployeeCompany.map(employee => <Employee key={employee.id} {...employee}/>)
                 }
                 </tbody>
             </table>
