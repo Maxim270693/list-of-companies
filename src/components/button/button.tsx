@@ -1,20 +1,21 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from "react";
 
-import style from './button.module.css';
+import style from "./button.module.css";
 
 type ButtonType = {
-    onClick: () => void
-    children: ReactNode
-}
+  onClick?: () => void;
+  children: ReactNode;
+  type?: "button" | "submit" | "reset";
+};
 
-const Button = ({onClick, children}: ButtonType) => {
-    const onClickHandler = () => onClick()
+const Button = ({ onClick, children, type }: ButtonType) => {
+  const onClickHandler = () => onClick?.();
 
-    return (
-        <button className={style.btn} onClick={onClickHandler}>
-            {children}
-        </button>
-    );
+  return (
+    <button type={type} className={style.btn} onClick={onClickHandler}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;
