@@ -1,11 +1,16 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addCompany, changeCheckboxCompanyEverything} from "../../redux/slices/listCompanySlice";
+import {
+    addCompany,
+    changeCheckboxCompanyEverything,
+    deleteAllCheckBox
+} from "../../redux/slices/listCompanySlice";
 
 import SelectAll from "../selectAll/selectAll";
 
 import {ListCompanyType, RootStateType} from "../../types/types";
 
+import Button from "../button/button";
 import Company from "../company/company";
 import EmployeeCompany from "../employeeCompany/employeeCompany";
 
@@ -29,7 +34,14 @@ const ListCompanies = () => {
 
                 <SelectAll onClickHandler={checkedCompanyEverything}/>
 
-                <button onClick={() => dispatch(addCompany())}>add company</button>
+                <Button onClick={() => dispatch(addCompany())}>
+                    add company
+                </Button>
+
+                {checkedCompany.length > 1 &&
+                <Button onClick={() => dispatch(dispatch(deleteAllCheckBox()))}>
+                    delete companies
+                </Button>}
 
                 <table>
                     <thead>
@@ -47,7 +59,7 @@ const ListCompanies = () => {
             </div>
 
             <div>
-                {!!checkedCompany.length && <EmployeeCompany checkedCompany={checkedCompany}/>}
+                {!!checkedCompany.length && <EmployeeCompany checkedCompany={checkedCompany.at(-1)}/>}
             </div>
         </div>
     );

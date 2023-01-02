@@ -2,8 +2,10 @@ import React, {ChangeEvent, FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {addEmployee, setError} from "../../redux/slices/employeeCompanySlice";
 
-import style from './addEmployeeModal.module.css';
+import Button from "../button/button";
+
 import {ListCompanyType, RootStateType} from "../../types/types";
+import style from './addEmployeeModal.module.css';
 
 type AddEmployeeModalType = {
     setOpenModal: (openModal: boolean) => void
@@ -92,7 +94,7 @@ const AddEmployeeModal = ({setOpenModal}: AddEmployeeModalType) => {
                 />
                 {error && <div className={style.errorMessage}>{error}</div>}
 
-                <button>add</button>
+                <Button onClick={() => {}}>add</Button>
             </form>
         </div>
     );

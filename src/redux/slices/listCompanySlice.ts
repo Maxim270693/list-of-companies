@@ -32,6 +32,9 @@ export const listCompanySlice = createSlice({
     name: 'listCompany',
     initialState,
     reducers: {
+        deleteAllCheckBox(state) {
+            state.listCompanies = state.listCompanies.filter(item => !item.isChecked)
+        },
         changeCheckBox(state, action) {
             state.listCompanies.map(company => company.id === action.payload
                 ? company.isChecked = !company.isChecked
@@ -72,6 +75,7 @@ export const listCompanySlice = createSlice({
 })
 
 export const {
+    deleteAllCheckBox,
     changeCheckBox,
     removeCompany,
     addCompany,

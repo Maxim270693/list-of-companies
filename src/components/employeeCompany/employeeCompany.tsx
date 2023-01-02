@@ -7,9 +7,10 @@ import {EmployeeCompanyType, ListCompanyType, RootStateType} from "../../types/t
 import Employee from "../employee/employee";
 import SelectAll from "../selectAll/selectAll";
 import AddEmployeeModal from "../modal/addEmployeeModal";
+import Button from "../button/button";
 
 type EmployeeCompanyPropsType = {
-    checkedCompany: ListCompanyType[]
+    checkedCompany?: ListCompanyType
 }
 
 const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
@@ -19,7 +20,7 @@ const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
 
     const [openModal, setOpenModal] = useState(false)
 
-    const newEmployeeCompany = employeeCompany.filter(i => i.company === checkedCompany.at(-1)?.nameCompany)
+    const newEmployeeCompany = employeeCompany.filter(i => i.company === checkedCompany?.nameCompany)
 
     const openModalHandler = () => setOpenModal(true)
 
@@ -35,7 +36,9 @@ const EmployeeCompany = ({checkedCompany}: EmployeeCompanyPropsType) => {
 
             <SelectAll onClickHandler={checkedEmployeeEverything}/>
 
-            <button onClick={openModalHandler}>add employee</button>
+            <Button onClick={openModalHandler}>
+                add employee
+            </Button>
 
             <table>
                 <thead>

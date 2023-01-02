@@ -85,6 +85,29 @@ export const employeeCompanySlice = createSlice({
                 : ''
             )
         },
+        changeFieldEmployee: {
+            reducer(state, action: any) {
+                state.employeeCompany.map(item => {
+                    if (item.id === action.payload.id) {
+                        item.lastName = action.payload.lastName
+                        item.name = action.payload.name
+                        item.jobTitle = action.payload.jobTitle
+
+                    }
+                })
+            },
+            prepare({id, isChecked, lastName, name, jobTitle}) {
+                return {
+                    payload: {
+                        id,
+                        isChecked,
+                        lastName,
+                        name,
+                        jobTitle,
+                    },
+                };
+            }
+        }
     }
 })
 
@@ -94,6 +117,7 @@ export const {
     setError,
     changeCheckboxEmployeeEverything,
     changeCheckBoxEmployee,
+    changeFieldEmployee,
 } = employeeCompanySlice.actions;
 
 export default employeeCompanySlice.reducer;

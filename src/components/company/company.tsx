@@ -5,8 +5,11 @@ import {
     changeNameCompany,
     removeCompany
 } from "../../redux/slices/listCompanySlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
+import Button from "../button/button";
+
+import {EmployeeCompanyType, RootStateType} from "../../types/types";
 import styles from "../listCompanies/listCompany.module.css";
 
 type CompanyType = {
@@ -19,6 +22,10 @@ type CompanyType = {
 
 const Company = ({id, isChecked, nameCompany, numberOfEmployees, address}: CompanyType) => {
     const dispatch = useDispatch();
+
+    const employeeCompany = useSelector<RootStateType, EmployeeCompanyType[]>(state => state.employeeCompany.employeeCompany);
+
+    const amountEmployee = employeeCompany.filter(item => item.company === nameCompany);
 
     const [editModeTitle, setEditModeTitle] = useState(false);
     const [editModeAddress, setEditModeAddress] = useState(false);
@@ -67,7 +74,7 @@ const Company = ({id, isChecked, nameCompany, numberOfEmployees, address}: Compa
                 <td onDoubleClick={activateEditMode}>{title}</td>
             }
 
-            <td>{numberOfEmployees}</td>
+            <td>{amountEmployee.length}</td>
 
             {editModeAddress
                 ? <td>
@@ -82,7 +89,9 @@ const Company = ({id, isChecked, nameCompany, numberOfEmployees, address}: Compa
                 <td onDoubleClick={activateEditModeAddress}>{addressCompany}</td>
             }
             <td>
-                <button onClick={removeCompanyHandler}>delete</button>
+                <Button onClick={removeCompanyHandler}>
+                    delete
+                </Button>
             </td>
         </tr>
     );
