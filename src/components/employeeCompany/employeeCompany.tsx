@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 
 import {useDispatch} from "react-redux";
 import {changeCheckboxEmployeeEverything} from "../../redux/slices/employeeCompanySlice";
@@ -14,7 +14,7 @@ type EmployeeCompanyPropsType = {
   checkedCompany?: ListCompanyType;
 };
 
-const EmployeeCompany = ({ checkedCompany }: EmployeeCompanyPropsType) => {
+const EmployeeCompany = React.memo(({ checkedCompany }: EmployeeCompanyPropsType) => {
   const dispatch = useDispatch();
 
   const employeeCompany = useAppSelector<EmployeeCompanyType[]>(
@@ -25,11 +25,11 @@ const EmployeeCompany = ({ checkedCompany }: EmployeeCompanyPropsType) => {
 
   const newEmployeeCompany = employeeCompany.filter((i) => i.company === checkedCompany?.nameCompany);
 
-  const openModalHandler = () => setOpenModal(true);
+  const openModalHandler = useCallback(() => setOpenModal(true), [dispatch]);
 
-  const checkedEmployeeEverything = (isChecked: boolean) => {
+  const checkedEmployeeEverything = useCallback((isChecked: boolean) => {
     dispatch(changeCheckboxEmployeeEverything(isChecked));
-  };
+  }, [dispatch]);
 
   return (
     <div>
@@ -63,6 +63,6 @@ const EmployeeCompany = ({ checkedCompany }: EmployeeCompanyPropsType) => {
       </table>
     </div>
   );
-};
+});
 
 export default EmployeeCompany;

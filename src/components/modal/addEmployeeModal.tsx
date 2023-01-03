@@ -13,14 +13,14 @@ type AddEmployeeModalType = {
   nameCompany?: string;
 };
 
-const AddEmployeeModal = ({
-  setOpenModal,
-  nameCompany,
-}: AddEmployeeModalType) => {
+const AddEmployeeModal = React.memo(({
+                                       setOpenModal,
+                                       nameCompany,
+                                     }: AddEmployeeModalType) => {
   const dispatch = useDispatch();
 
   const listCompanies = useAppSelector<ListCompanyType[]>(
-    (state) => state.listCompany.listCompanies
+      (state) => state.listCompany.listCompanies
   );
   const error = useAppSelector<string>((state) => state.employeeCompany.error);
 
@@ -59,58 +59,58 @@ const AddEmployeeModal = ({
   };
 
   const onFormClickHandler = (event: MouseEvent<HTMLFormElement>) =>
-    event.stopPropagation();
+      event.stopPropagation();
 
   return (
-    <div
-      className={style.modalWrapper}
-      onClick={() => {
-        setOpenModal(false);
-      }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className={style.modalContent}
-        onClick={onFormClickHandler}
+      <div
+          className={style.modalWrapper}
+          onClick={() => {
+            setOpenModal(false);
+          }}
       >
-        <input
-          type="text"
-          placeholder="enter the surName"
-          name="lastName"
-          value={lastName}
-          onChange={onChangeInputHandler}
-          className={error ? style.error : ""}
-        />
-        <input
-          type="text"
-          placeholder="enter the name"
-          name="name"
-          value={name}
-          onChange={onChangeInputHandler}
-          className={error ? style.error : ""}
-        />
-        <input
-          type="text"
-          placeholder="enter the jobTitle"
-          name="jobTitle"
-          value={jobTitle}
-          onChange={onChangeInputHandler}
-          className={error ? style.error : ""}
-        />
-        <input
-          type="text"
-          placeholder="enter the company"
-          name="company"
-          value={company}
-          onChange={onChangeInputHandler}
-          className={error ? style.error : ""}
-        />
-        {error && <div className={style.errorMessage}>{error}</div>}
+        <form
+            onSubmit={handleSubmit}
+            className={style.modalContent}
+            onClick={onFormClickHandler}
+        >
+          <input
+              type="text"
+              placeholder="enter the surName"
+              name="lastName"
+              value={lastName}
+              onChange={onChangeInputHandler}
+              className={error ? style.error : ""}
+          />
+          <input
+              type="text"
+              placeholder="enter the name"
+              name="name"
+              value={name}
+              onChange={onChangeInputHandler}
+              className={error ? style.error : ""}
+          />
+          <input
+              type="text"
+              placeholder="enter the jobTitle"
+              name="jobTitle"
+              value={jobTitle}
+              onChange={onChangeInputHandler}
+              className={error ? style.error : ""}
+          />
+          <input
+              type="text"
+              placeholder="enter the company"
+              name="company"
+              value={company}
+              onChange={onChangeInputHandler}
+              className={error ? style.error : ""}
+          />
+          {error && <div className={style.errorMessage}>{error}</div>}
 
-        <Button type="submit">add</Button>
-      </form>
-    </div>
+          <Button type="submit">add</Button>
+        </form>
+      </div>
   );
-};
+});
 
 export default AddEmployeeModal;

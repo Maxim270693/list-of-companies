@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import { useDispatch } from "react-redux";
 import {
   addCompany,
@@ -26,9 +26,12 @@ const ListCompanies = () => {
 
   const checkedCompany = listCompanies.filter((company) => company.isChecked);
 
-  const checkedCompanyEverything = (isChecked: boolean) => {
+  const checkedCompanyEverything = useCallback((isChecked: boolean) => {
     dispatch(changeCheckboxCompanyEverything(isChecked));
-  };
+  }, [dispatch]);
+
+  const addCompanyHandler = useCallback(() => dispatch(addCompany()), [dispatch])
+  const deleteCompanyHandler = useCallback(() => dispatch(dispatch(deleteAllCheckBox())), [dispatch])
 
   return (
     <div className={style.wrapper}>
@@ -37,10 +40,10 @@ const ListCompanies = () => {
 
         <SelectAll onClickHandler={checkedCompanyEverything} />
 
-        <Button onClick={() => dispatch(addCompany())}>add company</Button>
+        <Button onClick={addCompanyHandler}>add company</Button>
 
         {checkedCompany.length > 1 && (
-          <Button onClick={() => dispatch(dispatch(deleteAllCheckBox()))}>
+          <Button onClick={deleteCompanyHandler}>
             delete companies
           </Button>
         )}

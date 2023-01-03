@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {ChangeEvent, useCallback, useState} from "react";
 import {
   changeAddressCompany,
   changeCheckBox,
@@ -21,21 +21,21 @@ type CompanyType = {
   address: string;
 };
 
-const Company = ({
-  id,
-  isChecked,
-  nameCompany,
-  numberOfEmployees,
-  address,
-}: CompanyType) => {
+const Company = React.memo(({
+                              id,
+                              isChecked,
+                              nameCompany,
+                              numberOfEmployees,
+                              address,
+                            }: CompanyType) => {
   const dispatch = useDispatch();
 
   const employeeCompany = useAppSelector<EmployeeCompanyType[]>(
-    (state) => state.employeeCompany.employeeCompany
+      (state) => state.employeeCompany.employeeCompany
   );
 
   const amountEmployee = employeeCompany.filter(
-    (item) => item.company === nameCompany
+      (item) => item.company === nameCompany
   );
 
   const [editModeTitle, setEditModeTitle] = useState(false);
@@ -45,7 +45,7 @@ const Company = ({
   const [addressCompany, setAddressCompany] = useState(address);
 
   const changeCheckBoxHandler = () => dispatch(changeCheckBox(id));
-  const removeCompanyHandler = () => dispatch(removeCompany(id));
+  const removeCompanyHandler = useCallback(() => dispatch(removeCompany(id)), [dispatch]);
   const activateEditMode = () => setEditModeTitle(true);
   const changeInputValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.currentTarget.value);
@@ -53,20 +53,20 @@ const Company = ({
   const activateViewMode = () => {
     setEditModeTitle(false);
     dispatch(
-      changeNameCompany({ id, isChecked, title, numberOfEmployees, address })
+        changeNameCompany({ id, isChecked, title, numberOfEmployees, address })
     );
   };
 
   const activateViewModeAddress = () => {
     setEditModeAddress(false);
     dispatch(
-      changeAddressCompany({
-        id,
-        isChecked,
-        title,
-        numberOfEmployees,
-        addressCompany,
-      })
+        changeAddressCompany({
+          id,
+          isChecked,
+          title,
+          numberOfEmployees,
+          addressCompany,
+        })
     );
   };
   const changeInputAddressHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -75,48 +75,48 @@ const Company = ({
   const activateEditModeAddress = () => setEditModeAddress(true);
 
   return (
-    <tr key={id} className={isChecked ? styles.backgroundRow : ""}>
-      <td>
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={changeCheckBoxHandler}
-        />
-      </td>
-      {editModeTitle ? (
+      <tr key={id} className={isChecked ? styles.backgroundRow : ""}>
         <td>
           <input
-            type="text"
-            value={title}
-            onChange={changeInputValueHandler}
-            autoFocus
-            onBlur={activateViewMode}
+              type="checkbox"
+              checked={isChecked}
+              onChange={changeCheckBoxHandler}
           />
         </td>
-      ) : (
-        <td onDoubleClick={activateEditMode}>{title}</td>
-      )}
+        {editModeTitle ? (
+            <td>
+              <input
+                  type="text"
+                  value={title}
+                  onChange={changeInputValueHandler}
+                  autoFocus
+                  onBlur={activateViewMode}
+              />
+            </td>
+        ) : (
+            <td onDoubleClick={activateEditMode}>{title}</td>
+        )}
 
-      <td>{amountEmployee.length}</td>
+        <td>{amountEmployee.length}</td>
 
-      {editModeAddress ? (
+        {editModeAddress ? (
+            <td>
+              <input
+                  type="text"
+                  value={addressCompany}
+                  onChange={changeInputAddressHandler}
+                  autoFocus
+                  onBlur={activateViewModeAddress}
+              />
+            </td>
+        ) : (
+            <td onDoubleClick={activateEditModeAddress}>{addressCompany}</td>
+        )}
         <td>
-          <input
-            type="text"
-            value={addressCompany}
-            onChange={changeInputAddressHandler}
-            autoFocus
-            onBlur={activateViewModeAddress}
-          />
+          <Button onClick={removeCompanyHandler}>delete</Button>
         </td>
-      ) : (
-        <td onDoubleClick={activateEditModeAddress}>{addressCompany}</td>
-      )}
-      <td>
-        <Button onClick={removeCompanyHandler}>delete</Button>
-      </td>
-    </tr>
+      </tr>
   );
-};
+});
 
 export default Company;

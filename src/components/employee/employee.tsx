@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {ChangeEvent, useCallback, useState} from "react";
 import { useDispatch } from "react-redux";
 import {
   changeCheckBoxEmployee,
@@ -18,7 +18,7 @@ type EmployeeType = {
   jobTitle: string;
 };
 
-const Employee = ({
+const Employee = React.memo(({
   id,
   isChecked,
   lastName,
@@ -66,7 +66,7 @@ const Employee = ({
   };
 
   const changeCheckBoxHandler = () => dispatch(changeCheckBoxEmployee(id));
-  const deleteEmployeeHandler = () => dispatch(deleteEmployee(id));
+  const deleteEmployeeHandler = useCallback(() => dispatch(deleteEmployee(id)), [dispatch]);
 
   return (
     <tr key={id} className={isChecked ? styles.backgroundRow : ""}>
@@ -134,6 +134,6 @@ const Employee = ({
       </>
     </tr>
   );
-};
+});
 
 export default Employee;

@@ -8,7 +8,7 @@ type ButtonType = {
   type?: "button" | "submit" | "reset";
 };
 
-const Button = ({ onClick, children, type }: ButtonType) => {
+const Button = React.memo(({ onClick, children, type }: ButtonType) => {
   const onClickHandler = () => onClick?.();
 
   return (
@@ -16,6 +16,6 @@ const Button = ({ onClick, children, type }: ButtonType) => {
       {children}
     </button>
   );
-};
+});
 
 export default Button;

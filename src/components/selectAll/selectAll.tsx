@@ -6,7 +6,7 @@ type SelectAllType = {
   onClickHandler: (isChecked: boolean) => void;
 };
 
-const SelectAll = ({ onClickHandler }: SelectAllType) => {
+const SelectAll = React.memo(({ onClickHandler }: SelectAllType) => {
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
@@ -29,6 +29,6 @@ const SelectAll = ({ onClickHandler }: SelectAllType) => {
       />
     </div>
   );
-};
+});
 
 export default SelectAll;
